@@ -1,12 +1,24 @@
 const express = require("express");
+const session = require("express-session");
 const sequelize = require("./config/connection");
+const routes = require("./models/routes");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+const sess = {
+  secret: process.env.SESSION_SECRET,
+  cookie: {},
+  resave: false,
+  saveUninitialize: true
+};
+
+app.use(session(sess));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(port, () => {
