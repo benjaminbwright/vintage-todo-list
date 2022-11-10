@@ -13,7 +13,7 @@ router.get("/register", (req, res) => {
 router.get("/dashboard", checkAuth, async (req, res) => {
   const todoData = await Todo.findAll({
     where: {
-      user_id: 2
+      user_id: req.session.userId
     }
   });
   console.log(todoData);
