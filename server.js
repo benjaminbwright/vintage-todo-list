@@ -3,6 +3,8 @@ const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const sequelize = require("./config/connection");
 const routes = require("./routes");
+const path = require("path");
+const hbs = require("express-handlebars");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,10 +26,19 @@ const sess = {
 
 app.use(session(sess));
 
+const handlebars = hbs.create({});
+app.engine("handlebars", handlebars.engine);
+app.set("view engine", "handlebars");
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/assets/css/base/", express.static(path.join(__dirname, "./node_modules/xp.css/dist")));
+app.use(express.static(path.join(__dirname, "./public")));
+
 
 app.use(routes);
+
 
 app.get("*", (req, res) => {
   res.status(404).send("page not found");

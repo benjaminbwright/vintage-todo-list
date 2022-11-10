@@ -1,0 +1,44 @@
+<div class="window" style="width: 400px">
+  <div class="title-bar">
+    <div class="title-bar-text">A Window With Tabs and Groups</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <menu role="tablist">
+      <button aria-selected="true" aria-controls="music">Todos</button>
+
+    </menu>
+    <article role="tabpanel" id="music">
+        <form id="new-todo">
+          <div class="field-row-stacked" style="width: 300px">
+            <label for="new-todo-input">Add New Todo</label>
+            <input id="new-todo-input" type="text" />
+            <button style="width: 80px">Add Todo</button>
+          </div>
+        </form>
+        <p>You've got some stuff to do...</p>
+        <fieldset>
+          <legend>Today's Todos</legend>
+          {{#each todos }}
+          <div class="field-row" id="todo-list-items">
+            <input type="checkbox" id="item-{{id}}" data-todo-id="{{id}}" {{#if complete}}checked{{/if}}>
+            <label for="item-{{id}}">{{title}}</label>  
+          </div>
+          {{/each }}
+
+        </fieldset>
+        <section class="field-row">
+          <button>Reset Alarm...</button>
+          <label>Try this to get some attention</label>
+        </section>
+      </article>
+    <section class="field-row" style="justify-content: flex-end">
+      <button id="logout">Logout</button>
+    </section>
+  </div>
+</div>
+<script src="assets/js/dashboard.js"></script>
