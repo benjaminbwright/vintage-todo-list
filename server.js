@@ -33,7 +33,7 @@ app.set("view engine", "handlebars");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/assets/css/base/", express.static("./node_modules/xp.css/dist"));
+app.use("/assets/css/base/", express.static(__dirname + "/node_modules/xp.css/dist"));
 app.use(express.static("public"));
 
 
